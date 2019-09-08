@@ -1,0 +1,33 @@
+﻿<div style="height: 100%;">
+    <div class="col-12 margin-bootom-mat" *ngIf="test">
+        <div class="row">
+            <div class="col-12 col-md-8">
+                <div class="col-12 col-md-12 no-padding-l-r" [innerHTML]="test.description"></div>
+                <div class="col-12 col-md-12 alert alert-warning">
+                    <h5>Consideraciones</h5>
+                    <p>Durante el examen, no podrá acceder a los siguientes tipos de artículos personales: equipos o dispositivos
+                        electrónicos de mano.</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <mat-card>
+                    <mat-card-title>Detalles</mat-card-title>
+                    <mat-card-content>
+                        <p>Duración: <b>{{test.time}} minutos</b></p>
+                        <p>Preguntas: <b>{{questionCount()}}</b></p>
+                        <p>Valor: <b>{{testValue()}}</b></p>
+                        <p *ngIf="test.completed == true" class="alert alert-info">
+                            Repuestas correctas: <b>{{totalquestion}}</b> <br/> Calificación: <b>{{totalValue}}</b>
+                        </p>
+
+                    </mat-card-content>
+                    <mat-card-actions class="text-center">
+                        <button *ngIf="!test.completed" mat-button (click)="gotToUrl('questions')" class="primary green">Tomar el examen</button>
+                        <button *ngIf="test.completed" mat-button (click)="gotToUrl('result')" class="primary info">Ver resultados
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

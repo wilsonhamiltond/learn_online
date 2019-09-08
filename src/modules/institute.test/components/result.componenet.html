@@ -1,0 +1,17 @@
+﻿<div style="height: 100%;">
+    <div class="col-12 margin-bootom-sm" *ngIf="test">
+        <div class="row">
+            <h4 [innerHTML]="test.description"></h4>
+            <div class="col-12 col-md-12 margin-top-sm" *ngFor="let question of test.questions; let i = index">
+                <h5 [innerHTML]="question.description"></h5>
+
+                <one-select class="col-12 no-padding-l-r" *ngIf="question.type == SELECT_ONE_OPTION" [question]="question" [readonly]="true"></one-select>
+
+                <multiple-select class="col-12 no-padding-l-r" *ngIf="question.type == SELECT_MULTIPLE_OPTION" [question]="question" [readonly]="true"></multiple-select>
+            </div>
+            <div class="col-12 col-md-12 text-center margin-top-sm">
+                <button mat-button (click)="exitTest()" class="primary green">Regresar</button>
+            </div>
+        </div>
+    </div>
+</div>

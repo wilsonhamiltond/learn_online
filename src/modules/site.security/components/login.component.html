@@ -1,0 +1,55 @@
+﻿<div class="shadow-container col-12 col-sm-8 offset-sm-2 col-md-4 offset-md-4 col-lg-4 offset-lg-4">
+    <loading></loading>
+    <div class="header text-center">
+        <h2 class="margin-top-xs">Inicia Sesión</h2>
+    </div>
+    <div class="body margin-top-xs">
+        <form class="col-12" #loginForm="ngForm" novalidate (ngSubmit)="login()">
+            <button type="button" class="btn btn-primary btn-lg btn-block btn-facebook" (click)="fbLogin()">
+                <img style="height: 48px;" src="assets/images/f-logo.png"/> Continuar con Facebook</button>
+            <button type="button" class="btn btn-default btn-lg btn-block" (click)="gLogin()">
+                <img style="height: 48px;" src="assets/images/g-logo.png"/> Continuar con Google</button>
+            <div class="separators">
+                <div class="separator"></div>
+                <span>O</span>
+                <div class="separator"></div>
+            </div>
+            <div class="form-group margin-top-xs" [ngClass]="{ 'has-error':!user_name.valid, 'has-success' : user_name.valid}">
+                <i class="material-icons">mail</i>
+                <input #user_name="ngModel" name="user_name" required [(ngModel)]="user.user_name" type="user_name" class="form-control" placeholder="Correo electrónico"
+                />
+                <span *ngIf="!user_name.valid && user_name.touched" class="error">
+                    <i  class="material-icons"*ngIf="user_name.errors.required">error</i>
+                </span>
+                <span *ngIf="user_name.valid && user_name.touched" class="success">
+                    <i class="material-icons">check</i>
+                </span>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error':!password.valid, 'has-success' :password.valid}">
+                <i class="material-icons">lock</i>
+                <input type="password" #password="ngModel" [(ngModel)]="user.password" required name="password" class="form-control"
+                    placeholder="Contraseña" />
+                <span *ngIf="!password.valid && password.touched" class="error">
+                    <i  class="material-icons"*ngIf="password.errors.required">error</i>
+                </span>
+                <span *ngIf="password.valid && password.touched" class="success">
+                    <i class="material-icons">check</i>
+                </span>
+            </div>
+            <div class="form-group">
+                <mat-checkbox name="keep_login" [(ngModel)]="user.keep_login">
+                    Mantener mi sesión activa.
+                </mat-checkbox>
+            </div>
+            <button type="submit" class="btn btn-success btn-lg btn-block" [disabled]="!loginForm.valid">Inicia Sesión</button>
+            <div class="col-12 text-center">
+                <h6>
+                    <a [routerLink]="['/site/security/password/recover']"> ¿Has olvidado la contraseña?</a>
+                </h6>
+            </div>
+        </form>
+    </div>
+    <div class="col-12 text-center">
+        <h5>¿No tienes una cuenta? <a [routerLink]="['/site/security/register']">Regístrate</a></h5>
+    </div>
+</div>

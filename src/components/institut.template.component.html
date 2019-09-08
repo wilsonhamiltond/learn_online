@@ -1,0 +1,138 @@
+﻿<mat-drawer-container [hasBackdrop]="false" class="height-full">
+    <mat-drawer [mode]="'side'" [opened]="true" class="sidenav" #start>
+
+        <div class="col-12 height-full">
+            <div class="row height-full">
+                <div class="col-3 col-sm-3 col-md-2 no-padding-l-r main-menu">
+                    <ul class="menu">
+                        <li class="title">
+                            <a [routerLink]="['/institute/' + training.section._id + '/home']" *ngIf="training" (click)="go_home()">
+                                <img src="assets/images/educate-logo.png" />
+                            </a>
+                        </li>
+                        <li [routerLinkActive]="['active']" *ngIf="training" (click)="go_home()">
+                            <a [routerLink]="['/institute/' + training.section._id + '/home']">
+                                <i class="material-icons">home</i>
+                            </a>
+                        </li>
+                        <li [routerLinkActive]="['active']">
+                            <a  [routerLink]="['/site/home']">
+                                <i class="material-icons">web</i>
+                            </a>
+                        </li>
+                        <li [routerLinkActive]="['active']">
+                            <a [routerLink]="['/profile/home']">
+                                <i class="material-icons">person</i>
+                            </a>
+                        </li>
+                        <li style="position: fixed;">
+                            <a (click)="logout()">
+                                <i class="material-icons">exit_to_app</i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-9 col-sm-9 col-md-10 height-full sub-menu no-padding-l-r">
+                    <h5 class="title" *ngIf="training">
+                        <div class="col-12">
+                            <div class="row">
+                                <span class="col-10 col-sm-11 col-md-12 text-ellipsis">{{training.title}}</span>
+                                <a class="col-2 col-sm-1 d-block d-sm-none logo" [ngClass]="{'hide': hideMenuButton}"
+                                    (click)="start.toggle()">
+                                    <i  class="material-icons"style="position: absolute;">reorder</i>
+                                </a>
+                            </div>
+                        </div>
+                    </h5>
+                    <div class="program">
+                        <loading></loading>
+                        <ul class="training-menu" *ngIf="training && training.section">
+                            <li class="stage" *ngFor="let stage of training.section.stages; let si = index;">
+                                <h5 [ngClass]="{ 'disabled': verify_stage(si)}" class="text-ellipsis">{{stage.name}}</h5>
+                                <ul [ngClass]="{ 'disabled': verify_stage(si)}">
+                                    <li *ngFor="let m of stage.materials | sort:'order': true; let mi = index;" 
+                                        [ngClass]="{'selected': !!material && m._id == material._id, 'disabled': verify_material(si, mi)}"
+                                        class="text-ellipsis">
+                                        <i class="type material-icons" [ngClass]="{'viewed': m.viewed}">{{m.type.description2}}</i>
+                                        <a [routerLink]="['/institute/' + training.section._id + '/material/' + m._id + '/show' ]"
+                                            (click)="start.close()">{{m.name}}</a>
+                                        <i *ngIf="m.viewed" class="material-icons viewed float-right d-none d-sm-none d-md-block">check</i>
+                                    </li>
+                                    <li *ngFor="let t of stage.tests" 
+                                        [ngClass]="{'selected': !!test && t._id == test._id, 'disabled': verify_test(si)}"
+                                        class="text-ellipsis">
+                                        <i class="type material-icons" [ngClass]="{'viewed': t.completed}">help</i>
+                                        <a [routerLink]="['/institute/' + training.section._id + '/test/' + t._id + '/show' ]"
+                                            (click)="start.close()">{{t.name}}</a>
+                                        <i *ngIf="t.completed" class=" material-icons viewed float-right d-none d-sm-none d-md-block">check</i>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-drawer>
+    <mat-drawer-content>
+        <div class="header no-padding-l-r text-center">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-md-2 col-2 col-sm-1 text-left">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6">
+                                <a [ngClass]="{'hide': hideMenuButton}" class="float-left" (click)="start.toggle()">
+                                    <i  class="material-icons"style="cursor: pointer; margin-top: 10px;">reorder</i>
+                                </a>
+                            </div>
+                            <div class="d-none d-sm-none d-md-block col-md-6">
+                                <a [routerLink]="['/site/home']" *ngIf="!start.opened">
+                                    <img style="height: 32px;" src="assets/images/educate-logo.png" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-10 col-sm-11 text-center" *ngIf="training && training.section && !!material">
+                        <div class="row">
+                            <div class="col-2 col-sm-1">
+                                <a *ngIf="training.section.stages[0].materials[0]._id != material._id" (click)="previeus()"
+                                    class="margin-right-sm">
+                                    <i style="position: relative;top: 4px;" class="type material-icons">arrow_back</i>
+                                </a>
+                            </div>
+                            <div class="col-8 col-sm-10 text-ellipsis">
+                                <span>{{material.name}}</span>
+                            </div>
+                            <div class="col-2 col-sm-1">
+                                <a *ngIf="last_material_id != material._id" (click)="next()">
+                                    <i style="position: relative;top: 4px;" class="type material-icons">arrow_forward</i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-10 col-sm-10 text-center" *ngIf="test && test._id">
+                        <span class="text-ellipsis">{{test.name}}</span>
+                    </div>
+                    <div class="col-md-2 d-none d-sm-block d-sm-none d-md-block">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main col-12 no-padding-l-r">
+            <loading></loading>
+            <div class="component-main h-100">
+                <div class="h-80">
+                    <router-outlet></router-outlet>
+                </div>
+                <div class="h-20" *ngIf="show_ads">
+                    <ins class="adsbygoogle"
+                            style="display:block"
+                            data-ad-client="ca-pub-8751008385090221"
+                            data-ad-slot="9520616979"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"></ins>
+                </div>
+            </div>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>

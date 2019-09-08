@@ -1,0 +1,111 @@
+﻿<div class="col-12">
+    <form class="row" #userForm="ngForm" novalidate (ngSubmit)="save()">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+            <h3>Datos del usuario</h3>
+            <mat-card class="card-white" *ngIf="user">
+                <mat-card-content>
+                    <mat-form-field class="form-full-width">
+                        <input matInput placeholder="Nombre de usuario" maxlength="100" #user_name="ngModel" name="user_name" required pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"
+                            [(ngModel)]="user.user_name" type="text" class="form-full-width">
+                        <mat-hint *ngIf="user_name.errors && user_name.touched" align="end">
+                            <span *ngIf="user_name.errors.required" class="error">
+                                <i class="material-icons">error</i> El nombre de usuario es requerido.
+                            </span>
+                            <span *ngIf="user_name.errors.pattern" class="error">
+                                <i class="material-icons">error</i> El nombre de usuario no valido ejp: info@edu.com.
+                            </span>
+                        </mat-hint>
+                        <mat-hint *ngIf="user_name.valid && user_name.touched" align="end">
+                            <span class="success">
+                                <i class="material-icons">check</i>
+                            </span>
+                        </mat-hint>
+                    </mat-form-field>
+
+                    <mat-form-field class="form-full-width">
+                        <mat-select class="form-full-width margin-top-mat" name="userStatus" required placeholder="Estado" [(ngModel)]="user.status._id">
+                            <mat-option *ngFor="let status of statues" [value]="status._id">{{ status.name }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="form-full-width"><input matInput placeholder="Contraseña" #password="ngModel"
+                            name="password" [required]="user._id == ''" minlength="7" maxlength="20" [(ngModel)]="user.password"
+                            type="password" class="form-full-width">
+                        <mat-hint *ngIf="password.errors" align="end">
+                            <span *ngIf="password.errors.minlength || password.errors.maxlength" class="error">
+                                La contraseña deve tener una longitud de 7 a 20 caracteres.
+                            </span>
+                            <span *ngIf="password.errors.required && password.touched" class="error">
+                                <i class="material-icons">error</i> La contraseña es requerida.
+                            </span>
+                        </mat-hint>
+                        <mat-hint *ngIf="password.valid && password.touched" align="end">
+                            <span class="success">
+                                <i class="material-icons">check</i>
+                            </span>
+                        </mat-hint>
+                    </mat-form-field>
+                    <mat-form-field class="form-full-width"><input matInput placeholder="Confirmación" #password_confirm="ngModel"
+                            name="password_confirm" [(ngModel)]="user.password_confirm" type="password" (keyup)="validate()"
+                            class="form-full-width">
+                        <mat-hint *ngIf="password_confirm.touched && !passwordMath" align="end">
+                            <span class="error">
+                                <i class="material-icons">error</i> Las contraseñas no coinciden.
+                            </span>
+                        </mat-hint>
+                        <mat-hint *ngIf="password_confirm.touched && passwordMath" align="end">
+                            <span class="success">
+                                <i class="material-icons">check</i>
+                            </span>
+                        </mat-hint>
+                    </mat-form-field>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6" *ngIf="user">
+            <h3>Datos personales</h3>
+            <mat-card class="card-white">
+                <mat-card-content>
+                    <mat-form-field class="form-full-width"><input matInput placeholder="Nombre" maxlength="30" #person_name="ngModel"
+                            name="person_name" required [(ngModel)]="user.person.name" type="text" class="form-full-width">
+                        <mat-hint *ngIf="person_name.errors && person_name.touched" align="end">
+                            <span *ngIf="person_name.errors.required" class="error">
+                                <i class="material-icons">error</i> El nombre es requerido.
+                            </span>
+                        </mat-hint>
+                        <mat-hint *ngIf="person_name.valid && person_name.touched" align="end">
+                            <span class="success">
+                                <i class="material-icons">check</i>
+                            </span>
+                        </mat-hint>
+                    </mat-form-field>
+                    <mat-form-field class="form-full-width"><input matInput placeholder="Apellido" #person_last_name="ngModel"
+                            name="person_last_name" [(ngModel)]="user.person.last_name" type="text" class="form-full-width">
+                    </mat-form-field>
+
+                    <mat-form-field class="form-full-width"><input matInput placeholder="Correo Electrónico" #person_email="ngModel"
+                            name="person_email" required [(ngModel)]="user.person.email" type="text" class="form-full-width">
+                        <mat-hint *ngIf="person_email.errors && person_email.touched" align="end">
+                            <span *ngIf="person_email.errors.required" class="error">
+                                <i class="material-icons">error</i> El correo electrónico es requerido.
+                            </span>
+                            <span *ngIf="person_email.errors.pattern" class="error">
+                                <i class="material-icons">error</i> El correo eléctronico no valido ejp: info@edu.com.
+                            </span>
+                        </mat-hint>
+                        <mat-hint *ngIf="person_email.valid && person_email.touched" align="end">
+                            <span class="success">
+                                <i class="material-icons">check</i>
+                            </span>
+                        </mat-hint>
+                    </mat-form-field>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-12 margin-top-xs">
+            <button class="margin-right-sm" type="button" mat-raised-button [routerLink]="['/admin/user/list']"><i class="material-icons">cancel</i>
+                Cancelar</button>
+            <button type="submit" mat-raised-button color="primary" [disabled]="!userForm.valid"> Guardar <i class="material-icons">save</i></button>
+        </div>
+    </form>
+</div>

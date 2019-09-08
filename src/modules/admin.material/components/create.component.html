@@ -1,0 +1,72 @@
+﻿<form class="col-12" #materialForm="ngForm" novalidate (ngSubmit)="save()">
+    <div class="row" *ngIf="material">
+        <div class="col-12 col-md-12">
+            <mat-form-field class="form-full-width">
+                <input matInput placeholder="Nombre" #name="ngModel" name="name" required [(ngModel)]="material.name" type="text" class="form-full-width">
+                <mat-hint *ngIf="name.errors && name.touched" align="end">
+                    <span *ngIf="name.errors.required" class="error">
+                        <i class="material-icons">error</i> el nombre del material es requerido.
+                    </span>
+                </mat-hint>
+                <mat-hint *ngIf="name.valid && name.touched" align="end">
+                    <span class="success">
+                        <i class="material-icons">check</i>
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-6">
+            <mat-form-field class="form-full-width">
+                <mat-select name="type" #type="ngModel" required placeholder="Tipo de Material" [(ngModel)]="material.type">
+                    <mat-option *ngFor="let type of types" [value]="type._id">{{ type.name }}</mat-option>
+                </mat-select>
+                <mat-hint *ngIf="type.errors && type.touched" align="end">
+                    <span *ngIf="type.errors.required" class="error">
+                        <i class="material-icons">error</i> el tipo del material es requerido.
+                    </span>
+                </mat-hint>
+                <mat-hint *ngIf="type.valid && type.touched" align="end">
+                    <span class="success">
+                        <i class="material-icons">check</i>
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-6">
+            <mat-form-field class="form-full-width">
+                <input matInput placeholder="Orden" #order="ngModel" name="order" required [(ngModel)]="material.order" type="number" class="form-full-width">
+                <mat-hint *ngIf="order.errors && order.touched" align="end">
+                    <span *ngIf="order.errors.required" class="error">
+                        <i class="material-icons">error</i> el orden del material es requerido.
+                    </span>
+                </mat-hint>
+                <mat-hint *ngIf="order.valid && order.touched" align="end">
+                    <span class="success">
+                        <i class="material-icons">check</i>
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+        <div class=" margin-top-xs col-12 col-md-12 no-padding-l-r" *ngIf="material.type == material_type.local">
+            <file-upload (onUpload)="onUpload($event)" (onDelete)="onDelete($event)" [media]="material.media" [service]="materialService"></file-upload>
+        </div>
+        <div class="col-12 col-md-12 no-padding-l-r" *ngIf="material.type == material_type.youtube">
+            <youtube-media [media]="material.media"></youtube-media>
+        </div>
+        <div class="col-12 col-md-12 no-padding-l-r" *ngIf="material.type == material_type.embed">
+            <embed-media [media]="material.media"></embed-media>
+        </div>
+        <div class="col-12 col-md-12 no-padding-l-r" *ngIf="material.type == material_type.google_drive">
+            <google-drive-media [media]="material.media"></google-drive-media>
+        </div>
+        <div class="col-12 col-md-12">
+            <h4>Descripción</h4>
+            <ck-editor name="description" [(ngModel)]="material.description" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor>
+        </div>
+    </div>
+    <div class="margin-top-xs">
+        <button class="margin-right-sm" type="button" mat-raised-button [routerLink]="['/admin/material/'+stage_id+'/list']"><i class="material-icons">cancel</i>
+            Cancelar</button>
+        <button type="submit" mat-raised-button color="primary" [disabled]="!materialForm.valid"> Guardar <i class="material-icons">save</i></button>
+    </div>
+</form>

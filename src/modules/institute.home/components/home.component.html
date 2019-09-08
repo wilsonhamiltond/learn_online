@@ -1,0 +1,95 @@
+﻿<div class="register col-12">
+    <div class="row padding-top-xs padding-bootom-xs">
+        <div class="col-12 color-white margin-top-xs" *ngIf="training">
+            <h4 class="heading">
+                {{training.title}}
+            </h4>
+            <div class="col-12 no-padding-l-r margin-bootom-xs d-none">
+                <span>Valoracion</span> <span>Estudiantes</span>
+            </div>
+            <div class="col-12 no-padding-l-r margin-bootom-xs">
+                <div class="row">
+                    <div class="col-md-4">
+                        Inpartido por <a>{{training.section.author.name}}</a>
+                    </div>
+                    <div class="col-md-4 text-left">
+                        Categoria
+                        <a class="category">{{training.category.name}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 player">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-12 player no-padding-l-r" *ngIf="training.media.url">
+                        <video-player [media]="training.media"></video-player>
+                    </div>
+                    <div class="d-none d-sm-none d-md-block col-lg-4 col-md-4 col-sm-12 col-12">
+                        <div class="row border-top padding-top-xs">
+                            <label class="col-md-5">Modulos</label>
+                            <label class="col-md-7 text-right">{{training.section.stages.length | number}}</label>
+                            <label class="col-md-5">Materiales</label>
+                            <label class="col-md-7 text-right">{{material_lenght | number}}</label>
+                            <label class="col-md-5">Videos</label>
+                            <label class="col-md-7 text-right">{{videos_lenght | number}}</label>
+                            <label class="col-md-5">Duración</label>
+                            <label class="col-md-7 text-right">{{ hours }}h {{ minutes }}m</label>
+                            <label class="col-md-5">Examenes</label>
+                            <label class="col-md-7 text-right">{{test_lenght | number}}</label>
+                            <hr style="width: 100%"/>
+                            <label class="col-md-5">Estudiantes</label>
+                            <label class="col-md-7 text-right">{{ training.section.enrollments | number}}</label>
+                            <div class="col-12 col-md-12">
+                                <a *ngFor="let tag of training.tags" [routerLink]="['/site/training/search/' + tag]" class="badge badge-info" style="margin: 0 5px;" >{{tag}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12" *ngIf="training">
+            <div class="row">
+                <div id="about" class="col-12">
+                    <h5>Descripción del curso</h5>
+                    <div class="col-12" [innerHTML]="training.description"></div>
+                </div>
+                <div id="program" class="col-12">
+                    <h5>Programa del curso</h5>
+                    <div>
+                        <div class="col-12 stage">
+                            <div class="row" *ngFor="let stage of training.section.stages">
+                                <h6 class="title">{{stage.name}}</h6>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="row material" *ngFor="let material of stage.materials | sort:'order': true">
+                                            <div class="col-12 col-sm-12 col-md-9 no-padding-l-r">
+                                                {{material.name}}
+                                            </div>
+                                            <div class="d-none d-sm-none d-md-block col-md-3 text-right">
+                                                <span style="padding-right: 10px;" *ngIf="material.media.duration">{{to_minute(material.media.duration)}}</span> <i style="position: relative;top: 5px;" class="type material-icons">{{material.type.description2}}</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="author" class="col-12 margin-top-xs">
+                    <h5>Información del Tutor</h5>
+                    <div class="col-12 col-sm-5 col-md-4 col-lg-4">
+                        <img *ngIf="training.section.author.avatar_url" class="author-avatar" [src]="training.section.author.avatar_url">
+                        <h6><small>Email</small> {{training.section.author.email}}</h6>
+                    </div>
+                    <div class="col-12 col-sm-7 col-md-8 col-lg-8">
+                        <h6>
+                            <a>{{training.section.author.name}} {{training.section.author.last_name}}</a>
+                            <br />
+                            <small>Resumen</small>
+                        </h6>
+                        <div class="col-12" [innerHTML]="training.section.author.summary"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

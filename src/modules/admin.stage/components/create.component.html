@@ -1,0 +1,47 @@
+﻿<form class="col-12" #stageForm="ngForm" novalidate (ngSubmit)="save()">
+    <div class="row" *ngIf="stage">
+        <div class="col-12 col-md-12">
+            <mat-form-field class="form-full-width">
+                <input matInput placeholder="Nombre" #name="ngModel" name="name" required
+                    [(ngModel)]="stage.name" type="text" class="form-full-width">
+                <mat-hint *ngIf="name.errors && name.touched" align="end">
+                    <span *ngIf="name.errors.required" class="error">
+                        <i class="material-icons">error</i> El nombre es requerido.
+                    </span>
+                </mat-hint>
+                <mat-hint *ngIf="name.valid && name.touched" align="end">
+                    <span class="success">
+                        <i class="material-icons">check</i>
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-12  col-md-3">
+            <mat-form-field style="width: 100%">
+                <input name="start_date" #start_date="ngModel" [(ngModel)]="stage.start_date" required matInput [matDatepicker]="start_date"
+                    placeholder="Fecha de inicio">
+                <mat-datepicker-toggle matSuffix [for]="start_date"></mat-datepicker-toggle>
+                <mat-datepicker #start_date></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-12  col-md-3">
+            <mat-form-field style="width: 100%">
+                <input name="end_date" #end_date="ngModel" [(ngModel)]="stage.end_date" required matInput [matDatepicker]="end_date" placeholder="Fecha de fin">
+                <mat-datepicker-toggle matSuffix [for]="end_date"></mat-datepicker-toggle>
+                <mat-datepicker #end_date></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-12  col-md-6">
+            <mat-form-field style="width: 100%">
+                <mat-select name="status" required placeholder="Estado" [(ngModel)]="stage.status">
+                    <mat-option *ngFor="let status of statues" [value]="status._id">{{ status.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="margin-top-xs">
+        <button class="margin-right-sm" type="button" mat-raised-button [routerLink]="['/admin/stage/'+section_id+'/list']"><i class="material-icons">cancel</i>
+            Cancelar</button>
+        <button type="submit" mat-raised-button color="primary" [disabled]="!stageForm.valid"> Guardar <i class="material-icons">save</i></button>
+    </div>
+</form>

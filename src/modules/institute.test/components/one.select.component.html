@@ -1,0 +1,21 @@
+﻿<form #optionForm="ngForm" class="row" novalidate>
+    <div class="col-12 col-md-12">
+        <h5>Opciones</h5>
+        <mat-radio-group [(value)]="radioOption">
+            <div class="col-md-12" *ngFor="let option of question.options">
+                <div class="row" style="border-bottom: solid 1px #d5d5d5;margin-bottom: 10px;">
+                    <mat-radio-button class="col-2 col-sm-1 col-md-1" [disabled]="readonly && !hasSelected(option)" [checked]="hasSelected(option)"
+                        [value]="option.label" (click)="addResponse(option)">
+                    </mat-radio-button>
+                    <p class="col-10 col-sm-11 col-md-11" style="margin: 0">{{option.label}}</p>
+                </div>
+            </div>
+        </mat-radio-group>
+        <div *ngIf="readonly && result == true" class="col-12 col-md-12 alert alert-success">
+            Valor: <b>{{question.value}}</b>
+        </div>
+        <div *ngIf="readonly && result == false" class="col-12 col-md-12 alert alert-warning">
+            Respuesta incorrecta
+        </div>
+    </div>
+</form>

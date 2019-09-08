@@ -1,0 +1,91 @@
+﻿<div class="col-12">
+    <div class="row">
+        <div class="col-4">
+            <button *ngIf="training_id" mat-raised-button color="success" [routerLink]="['/admin/section/'+ training_id + '/0/create']">
+                <i  class="material-icons md-16">add_box</i> Nuevo</button>
+        </div>
+        <div class="col-8">
+            <mat-form-field style="width: 100%">
+                <input matInput type="search" [(ngModel)]="query" (keyup)="search($event)" placeholder='Filtrar' />
+            </mat-form-field>
+        </div>
+        <div class="col-12">
+            <table mat-table [dataSource]="sections" style="width: 100%">
+                <ng-container matColumnDef="code">
+                    <th mat-header-cell *matHeaderCellDef>Código</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.code}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="author">
+                    <th mat-header-cell *matHeaderCellDef>Profesor</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.author.name}} {{element.author.last_name}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="tutorial">
+                    <th mat-header-cell *matHeaderCellDef>Tutorial</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.tutorial ? 'Si' : 'No'}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="start_date">
+                    <th mat-header-cell *matHeaderCellDef>Fecha inicio</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.start_date | date: 'dd/MM/yyyy'}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="end_date">
+                    <th mat-header-cell *matHeaderCellDef>Fecha fin</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.end_date | date: 'dd/MM/yyyy'}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="training">
+                    <th mat-header-cell *matHeaderCellDef>Curso</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.training.title}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef>Estado</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.status.name}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="enrollements">
+                    <th mat-header-cell *matHeaderCellDef class="action">Inscripciónes</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button class="action" mat-button color="accent" [routerLink]="['/admin/section/'+ element._id +'/enrollments']">
+                            <i class="material-icons">group</i>
+                        </button>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="modules">
+                    <th mat-header-cell *matHeaderCellDef class="action">Modulos</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button class="action" mat-button color="accent" [routerLink]="['/admin/stage/'+ element._id +'/list']">
+                            <i class="material-icons">view_module</i>
+                        </button>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef class="action">Acción</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button *ngIf="!training_id" class="action" mat-button color="accent" [routerLink]="['/admin/section/'+ element._id +'/create']"><i class="material-icons"
+                                >create</i></button>
+
+                        <button *ngIf="!!training_id" class="action" mat-button color="accent" [routerLink]="['/admin/section/'+ element.training._id +'/'+ element._id +'/create']"><i class="material-icons"
+                                >create</i></button>
+
+                        <button *ngIf="training_id" class="action" mat-button color="warn" (click)="delete(element)"><i  class="material-icons md-16">delete</i></button>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [length]="size" [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100]" (page)="onPage($event)">
+            </mat-paginator>
+        </div>
+    </div>
+</div>

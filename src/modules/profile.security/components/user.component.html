@@ -1,0 +1,106 @@
+﻿<div class="col-12 no-padding-l-r margin-bootom-mat">
+    <div class="body margin-top-xs ">
+        <form class="col-12" #registerForm="ngForm" novalidate (ngSubmit)="save()" *ngIf="user">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-12 margin-bootom-sm">
+                    <div class="circle-container" *ngIf="loading">
+                        <mat-progress-spinner mode="determinate" value="{{progress}}"></mat-progress-spinner>
+                        <span class="number">{{progress}}%</span>
+                    </div>
+                    <img #profileImage *ngIf="LOCAL_USER_KEY != user.type && !loading" class="avatar" [src]="user.person.avatar_url" />
+                    <img #profileImage *ngIf="LOCAL_USER_KEY == user.type && !loading && user.person.avatar_url" class="avatar" [src]="user.person.avatar_url"
+                    />
+                    <input type="file" *ngIf="LOCAL_USER_KEY == user.type" class="d-none" (change)="changeFile($event)" accept="image/*" #file />
+                    <button type="button" *ngIf="LOCAL_USER_KEY == user.type && !loading" class="btn btn-xs btn-block btn-info btn-filled avatar-change" (click)="file.click()">
+                        <i class="material-icons">create</i> Cambiar
+                    </button>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-12 col-12">
+                    <div class="row">
+                        <div class="col-12 margin-bootom-xs no-padding-l-r field" [ngClass]="{ 'has-error': !person_name.valid, 'has-success' : person_name.valid}">
+                            <input name="person_name" type="text" [(ngModel)]="user.person.name" required minlength="5" maxlength="20" #person_name="ngModel"
+                                class="form-control" placeholder="Nombre" />
+                            <span *ngIf="!person_name.valid && person_name.touched" class="error">
+                                <i  class="material-icons"*ngIf="person_name.errors.required" matTooltip="El nombre es requerido." tooltip-position="above">error</i>
+                                <i  class="material-icons fa fa-exclamation-triangle" *ngIf="person_name.errors.minlength || person_name.errors.maxlength" matTooltip="El nombre deve tener una longitud de 5 a 20 caracteres."
+                                    tooltip-position="above">error</i>
+                            </span>
+                            <span *ngIf="person_name.valid && person_name.touched" class="success">
+                                <i class="material-icons">check</i>
+                            </span>
+                        </div>
+                        <div class="col-12 margin-bootom-xs no-padding-l-r field" [ngClass]="{ 'has-error': !person_last_name.valid, 'has-success' : person_last_name.valid}">
+                            <input name="person_last_name" type="text" [(ngModel)]="user.person.last_name" required minlength="5" maxlength="20" #person_last_name="ngModel"
+                                class="form-control" placeholder="Apellido" />
+                            <span *ngIf="!person_last_name.valid && person_last_name.touched" class="error">
+                                <i  class="material-icons fa fa-exclamation-triangle" *ngIf="person_last_name.errors.required" matTooltip="El apellido es requerido."
+                                    tooltip-position="above">error</i>
+                                <i  class="material-icons fa fa-exclamation-triangle" *ngIf="person_last_name.errors.minlength || person_last_name.errors.maxlength"
+                                    matTooltip="El apellido deve tener una longitud de 5 a 20 caracteres." tooltip-position="above">error</i>
+                            </span>
+                            <span *ngIf="person_last_name.valid && person_last_name.touched" class="success">
+                                <i class="material-icons">check</i>
+                            </span>
+                        </div>
+                        <div class="col-12 margin-bootom-xs no-padding-l-r field" [ngClass]="{ 'has-error': !user_name.valid, 'has-success' : user_name.valid}">
+                            <input name="user_name" type="email" [(ngModel)]="user.person.email" required #user_name="ngModel" class="form-control" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"
+                                placeholder="Correo Eléctronico" />
+                            <span *ngIf="!user_name.valid && user_name.touched" class="error">
+                                <i  class="material-icons"*ngIf="user_name.errors.required" matTooltip="El correo eléctronico es requerido." tooltip-position="above">error</i>
+                                <i  class="material-icons"*ngIf="user_name.errors.pattern" matTooltip="El correo eléctronico no valido ejp: info@edu.com." tooltip-position="above">error</i>
+                            </span>
+                            <span *ngIf="user_name.valid && user_name.touched" class="success">
+                                <i class="material-icons">check</i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="form-full-width">
+                        <mat-select name="gender" required placeholder="Genero" [(ngModel)]="user.person.gender">
+                            <mat-option *ngFor="let gender of genders" [value]="gender._id">{{ gender.name }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-md-6">
+                    <mat-form-field style="width: 100%">
+                        <input name="birthdate" #birthdate="ngModel" [(ngModel)]="user.person.birthdate" required matInput [matDatepicker]="birthdate"
+                            placeholder="Fecha de nacimiento">
+                        <mat-datepicker-toggle matSuffix [for]="birthdate"></mat-datepicker-toggle>
+                        <mat-datepicker #birthdate></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="form-full-width">
+                        <mat-select name="document_type" required placeholder="Tipo de documento" [(ngModel)]="user.person.document_type">
+                            <mat-option *ngFor="let type of documentTypes" [value]="type._id">{{ type.name }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="form-full-width">
+                        <input matInput name="document_number" type="text" [(ngModel)]="user.person.document_number" #document_number="ngModel" placeholder="Numero del documento"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-md-12">
+                    <ck-editor name="summary" [(ngModel)]="user.person.summary" skin="moono-lisa" language="en" [fullPage]="true"  [config]="config" ></ck-editor>
+                </div>
+            </div>
+            <div class="col-12 margin-top-sm">
+                <div class="row">
+                    <div class="col-md-5 no-padding-l-r margin-bootom-sm">
+                        <button type="submit" class="btn btn-success btn-lg btn-block btn-filled" [disabled]="!registerForm.valid">
+                            Guardar <i  class="material-icons"style="top: 5px; position: relative;">save</i>
+                        </button>
+                    </div>
+                    <div class="offset-md-2 col-md-5 no-padding-l-r margin-bootom-sm">
+                        <button type="button" class="btn btn-default btn-lg btn-block btn-filled" [routerLink]="['/profile/home']">
+                            Ir al inicio <i  class="material-icons"style="top: 5px; position: relative;">home</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

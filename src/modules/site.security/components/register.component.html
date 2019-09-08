@@ -1,0 +1,57 @@
+﻿<div class="shadow-container col-lg-4 offset-lg-4 col-md-4 offset-md-4 col-sm-6 offset-sm-3 col-12 no-padding-l-r">
+    <loading></loading>
+    <div class="header text-center">
+        <h3 class="margin-top-xs">¡Regístrate a aprender!</h3>
+    </div>
+    <div class="body margin-top-xs">
+        <form class="col-12" #registerForm="ngForm" novalidate (ngSubmit)="save()">
+            <div class="form-group" [ngClass]="{ 'has-error': !person_name.valid, 'has-success' : person_name.valid}">
+                <i class="material-icons">person</i>
+                <input name="person_name" type="text" [(ngModel)]="user.person.name" required minlength="5" maxlength="20" #person_name="ngModel"
+                    class="form-control" placeholder="Nombre Completo" />
+                <span *ngIf="!person_name.valid && person_name.touched" class="error">
+                    <i  class="material-icons"*ngIf="person_name.errors.required">error</i>
+                    <i  class="material-icons"*ngIf="person_name.errors.minlength || person_name.errors.maxlength">error</i>
+                </span>
+                <span *ngIf="person_name.valid && person_name.touched" class="success">
+                    <i class="material-icons">check</i>
+                </span>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': (!user_name.valid || invalid_name), 'has-success' : user_name.valid && !invalid_name}">
+                <i class="material-icons">mail</i>
+                <input name="user_name" type="email" [(ngModel)]="user.user_name" required #user_name="ngModel" class="form-control" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" (blur)="verify()"
+                    placeholder="Correo Eléctronico" />
+                <span *ngIf="!user_name.valid && user_name.touched || invalid_name" class="error">
+                    <i  class="material-icons"*ngIf="!invalid_name && user_name.errors.required">error</i>
+                    <i  class="material-icons"*ngIf="!invalid_name && user_name.errors.pattern">error</i>
+                    <i  class="material-icons"*ngIf="invalid_name">error</i>
+                </span>
+                <span *ngIf="user_name.valid && user_name.touched && !invalid_name" class="success">
+                    <i class="material-icons">check</i>
+                </span>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': !password.valid, 'has-success' : password.valid}">
+                <i class="material-icons">lock</i>
+                <input name="password" type="password" [(ngModel)]="user.password" required minlength="7" maxlength="20" #password="ngModel"
+                    class="form-control" placeholder="Contraseña" />
+                <span *ngIf="!password.valid && password.touched" class="error">
+                    <i  class="material-icons"*ngIf="password.errors.required">error</i>
+                    <i  class="material-icons"mat-tooltip="La contraseña deve tener una longitud de 8 a 20 caracteres." *ngIf="password.errors.minlength || password.errors.maxlength">error</i>
+                </span>
+                <span *ngIf="password.valid && password.touched" class="success">
+                    <i class="material-icons">check</i>
+                </span>
+            </div>
+            <button type="submit" class="btn btn-success btn-lg btn-block" [disabled]="!registerForm.valid || invalid_name">Registrame</button>
+            <div class="col-12 text-center">
+                <h5>
+                    <small>Al registrarte, aceptas nuestras <a [routerLink]="['/site/home/terms']">Condiciones de uso</a> y <a
+                            [routerLink]="['/site/home/policy']">Política de privacidad</a>.</small>
+                </h5>
+            </div>
+        </form>
+    </div>
+    <div class="col-12 text-center">
+        <h4>¿Ya tienes una cuenta? <a [routerLink]="['/site/security/login']">Iniciar sesión</a></h4>
+    </div>
+</div>

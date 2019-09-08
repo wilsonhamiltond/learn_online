@@ -1,0 +1,6 @@
+﻿<div (click)="close()">
+    <i class="material-icons">{{data.icon}}</i> 
+    <span *ngIf="data.title" class="title">{{data.title}}</span>
+    <span *ngIf="!data.title" class="title">{{data.message}}</span>
+    <p *ngIf="data.title" class="title">{{data.message}}</p>
+</div>

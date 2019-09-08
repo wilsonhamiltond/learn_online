@@ -1,0 +1,12 @@
+﻿<div id="ytplayer" *ngIf="isYoutube()" ></div>
+<figure #videoContainer data-fullscreen="false" *ngIf="isYoutube() == false">
+    <div class="overlap-play" (click)="play()" *ngIf="!isPlaying">
+        <a cla>
+            <i class="fa fa-play"></i>
+        </a>
+    </div>
+    <video #video controls preload="metadata" buffered poster="{{media.thumbnail}}">
+        <source *ngIf="media.type != drive_video" [src]="'/api/v1/file/media/' + media._id" type="{{media.type.description}}">
+        <source *ngIf="media.type == drive_video" [src]="'https://drive.google.com/uc?export=download&id='+ media.url" type='video/mp4'>
+    </video>
+</figure>

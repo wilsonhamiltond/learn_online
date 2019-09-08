@@ -1,0 +1,89 @@
+﻿<form class="col-12" #trainingForm="ngForm" novalidate (ngSubmit)="save()">
+    <div class="row" *ngIf="training">
+        <div class="col-12 col-md-6">
+            <div class="col-12 no-padding-l-r">
+                <mat-form-field class="form-full-width">
+                    <input matInput placeholder="Titulo" #title="ngModel" name="title" required [(ngModel)]="training.title" type="text" class="form-full-width">
+                    <mat-hint *ngIf="title.errors && title.touched" align="end">
+                        <span *ngIf="title.errors.required" class="error">
+                            <i class="material-icons">error</i> El titulo es requerido.
+                        </span>
+                    </mat-hint>
+                    <mat-hint *ngIf="title.valid && title.touched" align="end">
+                        <span class="success">
+                            <i class="material-icons">check</i>
+                        </span>
+                    </mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="col-12 no-padding-l-r">
+                <mat-form-field class="form-full-width">
+                    <mat-select name="category" required placeholder="Categoria" [(ngModel)]="training.category">
+                        <mat-option *ngFor="let c of categories" [value]="c._id">{{ c.name }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-12 no-padding-l-r">
+                <mat-form-field class="form-full-width">
+                    <mat-select name="language" required placeholder="Lenguage" [(ngModel)]="training.language">
+                        <mat-option *ngFor="let l of languages" [value]="l._id">{{ l.name }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="col-12 no-padding-l-r">
+                <div class="row">
+                    <div class="col-12 col-md-4" style="margin-top: 20px;margin-bottom: 17px;">
+                        <mat-checkbox name="is_free" [(ngModel)]="training.is_free">
+                            Gratis
+                        </mat-checkbox>
+                    </div>
+                    <div class="col-12 col-md-8" *ngIf="!training.is_free">
+                        <mat-form-field class="form-full-width">
+                            <input matInput placeholder="Precio" #price="ngModel" name="price" [(ngModel)]="training.price" type="number" class="form-full-width">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 no-padding-l-r">
+                <mat-form-field class="form-full-width">
+                    <mat-select name="status" required placeholder="Estado" [(ngModel)]="training.status">
+                        <mat-option *ngFor="let s of statues" [value]="s._id">{{ s.name }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-12 no-padding-l-r">
+                <mat-form-field style="width: 100%">
+                    <input name="publish_date" #publish_date="ngModel" [(ngModel)]="training.publish_date" required matInput [matDatepicker]="publish_date"
+                        placeholder="Fecha de publicación">
+                    <mat-datepicker-toggle matSuffix [for]="publish_date"></mat-datepicker-toggle>
+                    <mat-datepicker #publish_date></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <mat-form-field class="form-full-width">
+                <mat-chip-list #chipList>
+                    <mat-chip *ngFor="let tag of training.tags" [selectable]="true" [removable]="true" (removed)="remove(tag)"> {{tag}}
+                        <i  class="material-icons"matChipRemove *ngIf="removable">cancel</i>
+                    </mat-chip>
+                    <input placeholder="Agrege un tag" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="add($event)">
+                </mat-chip-list>
+            </mat-form-field>
+        </div>
+        <div class="col-12">
+            <h4>Descripción</h4>
+            <ck-editor name="description" [(ngModel)]="training.description" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 margin-top-xs">
+            <button class="margin-right-sm" type="button" mat-raised-button [routerLink]="['/admin/training/list']"><i class="material-icons">cancel</i>
+                Cancelar</button>
+            <button type="submit" mat-raised-button color="primary" [disabled]="!trainingForm.valid"> Guardar <i class="material-icons">save</i></button>
+        </div>
+    </div>
+</form>

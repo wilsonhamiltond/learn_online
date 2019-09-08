@@ -1,0 +1,92 @@
+﻿<div class="shadow-container col-lg-10 offset-lg-1 col-md-10 offset-md-1 col-sm-10 offset-sm-1 col-12">
+
+    <div class="col-12">
+        <div class="row">
+            <div class="col-md-7 col-sm-6">
+                <div id="map" class="map"></div>
+            </div>
+            <div class="col-md-5 col-sm-6">
+                <h4>Quienes somos</h4>
+                <p>Somos un equipo de jóvenes emprendedores, profesionales de la informática y otras áreas del saber
+                    dispuestos a facilitar nuestros conocimientos.</p>
+            </div>
+        </div>
+
+        <div class="row margin-top-sm">
+            <div class="col-md-7 col-sm-6">
+                <h5>Formulario de contacto</h5>
+                <form #contactForm="ngForm" novalidate (ngSubmit)="send()" class="contact">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-form-field class="form-full-width">
+                                    <input matInput placeholder="Nombre" #name="ngModel" name="name" required
+                                        [(ngModel)]="contact.name" type="text" />
+                                    <mat-hint *ngIf="name.errors && name.touched" align="end">
+                                        <span *ngIf="name.errors.required" class="error">
+                                            <i class="material-icons">error</i> El nombre es requerido.
+                                        </span>
+                                    </mat-hint>
+                                    <mat-hint *ngIf="name.valid && name.touched" align="end">
+                                        <span class="success">
+                                            <i class="material-icons">check</i>
+                                        </span>
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field class="form-full-width">
+                                    <input matInput placeholder="Correo Electronico" #email="ngModel" name="email"
+                                        pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" required [(ngModel)]="contact.email"
+                                        type="text">
+                                    <mat-hint *ngIf="email.errors && email.touched" align="end">
+                                        <span *ngIf="email.errors.required" class="error">
+                                            <i class="material-icons">error</i> El correo electronico es requerido.
+
+                                        </span>
+                                        <span *ngIf="email.errors.pattern" class="error">
+                                            <i class="material-icons">error</i> El correo eléctronico no valido ejp:
+                                            info@edu.com.
+                                        </span>
+                                    </mat-hint>
+                                    <mat-hint *ngIf="email.valid && email.touched" align="end">
+                                        <span class="success">
+                                            <i class="material-icons">check</i>
+                                        </span>
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <mat-form-field class="form-full-width">
+                            <textarea matInput rows="5" name="text" #text="ngModel" required [(ngModel)]="contact.text"
+                                class="form-full-width" placeholder="Comentarios"></textarea>
+                            <mat-hint *ngIf="text.errors && text.touched" align="end">
+                                <span *ngIf="text.errors.required" class="error">
+                                    <i class="material-icons">error</i> El comentario es requerido.
+                                </span>
+                            </mat-hint>
+                            <mat-hint *ngIf="text.valid && text.touched" align="end">
+                                <span class="success">
+                                    <i class="material-icons">check</i>
+                                </span>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-lg btn-block margin-top-md" [disabled]="!contactForm.valid">Enviar</button>
+                </form>
+            </div>
+            <div class="col-md-5 col-sm-6">
+                <h5>Nuestras Redes</h5>
+                <p>Teléfono: <a href="tel:8294949665">(829) 494-9665</a></p>
+                <p>Whatsapp: <a target="__blank" href="https://api.whatsapp.com/send?phone=8294949665">(829) 494-9665</a></p>
+                <p>Email: <a href="mailto:educateenlinea@hotmail.com">educateenlinea@hotmail.com</a></p>
+                <p>Twitter: <a target="__blank" href="https://twitter.com/educate_enlinea">@educate_enlinea</a></p>
+                <p>Instagram: <a target="__blank" href="https://www.instagram.com/educateenlinea">@educateenlinea</a></p>
+                <p>Facebook: <a target="__blank" href="https://www.facebook.com/educateenlinea">@educateenlinea</a></p>
+            </div>
+        </div>
+    </div>
+
+</div>

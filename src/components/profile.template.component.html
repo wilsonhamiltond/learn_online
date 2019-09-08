@@ -1,0 +1,48 @@
+﻿<div class="profile" [ngClass]="{'menu-xs': menu_xs}">
+    <div class="header col-12">
+        <div class="row">
+            <div class="col-12 col-md-3 left no-padding-l-r">
+                <a class="logo" [routerLink]="['/profile/home']">educate</a>
+                <button style="z-index: 5" class="btn btn-xs btn-default float-right margin-top-xs d-block d-sm-none" (click)="toggleMenu()">
+                    <i class="material-icons">reorder</i>
+                </button>
+            </div>
+            <div class="col-12 col-md-9 right">
+                {{title}}
+            </div>
+        </div>
+    </div>
+    <div class="col-12  body">
+        <div class="row" style="height: 100%;" >
+            <div class="hidden-xs col-12 col-sm-4 col-md-3 left">
+                <ul class="menu">
+                    <li [routerLinkActive]="['active']">
+                        <a [routerLink]="['/profile/home']"><i class="material-icons">home</i> MIS CURSOS</a>
+                    </li >
+                    <li [routerLinkActive]="['active']">
+                        <a [routerLink]="['/site/home']"><i class="material-icons">web</i> SITO WEB</a>
+                    </li>
+                    <li [routerLinkActive]="['active']">
+                        <a [routerLink]="['/profile/security/password']"><i class="material-icons">lock</i> CAMBIAR CONTRASEÑA</a>
+                    </li>
+                    <li [routerLinkActive]="['active']">
+                        <a [routerLink]="['/profile/security/user']"><i class="material-icons">person</i> EDITAR MI PERFIL</a>
+                    </li>
+                    <li [routerLinkActive]="['active']">
+                        <a [routerLink]="['/profile/training/history']"><i class="material-icons">history</i> HISTORICO</a>
+                    </li>
+
+                    <li>
+                        <a (click)="logout()"><i class="material-icons">exit_to_app</i> CERRAR SESIÓN</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-12 col-sm-8 col-md-9 right">
+                <div class="col-12 no-padding-l-r height-100">
+                    <loading></loading>
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

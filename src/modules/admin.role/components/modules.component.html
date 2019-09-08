@@ -1,0 +1,51 @@
+﻿<div class="col-12">
+    <div class="row">
+        <div class="margin-bottom-xs col-6">
+            <button type="button" [routerLink]="['/admin/role/list']" mat-raised-button class="margin-right-xs">
+                <i  class="material-icons link">close</i> Cancelar</button>
+            <button type="botton" (click)="save()" mat-raised-button color="primary">
+                Guardar
+                <i  class="material-icons link">check</i>
+            </button>
+        </div>
+        <div class="col-md-6 margin-bottom-xs">
+            <mat-form-field style="width: 100%">
+                <input matInput name="filter" #filterInput placeholder="Filtrar" />
+            </mat-form-field>
+        </div>
+        <div class="margin-bottom-xs col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Descripción</th>
+                        <th>Url</th>
+                        <th class="action">Seleccionar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let mod of modules | filter: 'name': filterInput.value; let i = $index">
+                        <td>
+                            {{mod.name}}
+                        </td>
+                        <td>
+                            {{mod.url}}
+                        </td>
+                        <td class="action">
+                            <mat-checkbox name="added" [(ngModel)]="mod.added" (change)="select_all(mod, i)"></mat-checkbox>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <button type="button" [routerLink]="['/admin/role/list']" mat-raised-button class="margin-right-xs">
+                <i  class="material-icons link">close</i> Cancelar</button>
+            <button type="botton" (click)="save()" mat-raised-button color="primary">
+                Guardar
+                <i  class="material-icons link">check</i>
+            </button>
+        </div>
+    </div>
+</div>

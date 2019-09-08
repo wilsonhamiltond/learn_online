@@ -1,0 +1,25 @@
+﻿<div class="col-12 h-100">
+    <div class="row h-100" *ngIf="material">
+        <div class="col-12 overload text-center" *ngIf="currentTime > 0">
+            <div class="progress">
+                <div class="circle-container">
+                    <mat-progress-spinner mode="determinate" [value]="((currentTime * 100) / timer)"></mat-progress-spinner>
+                    <span class="number">{{currentTime}} segundos</span>
+                    <a (click)="next()" class="btn btn-block btn-filled btn-xs btn-primary">Siguiente</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 h-80" *ngIf="material.type._id == material_type.embed" >
+            <div class="row h-100">
+                <iframe [src]="material.media.url | safe " frameborder="0" class="col-12 h-100"
+                    allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+            </div>
+        </div>
+        <div class="col-12 h-80" *ngIf="material.media.url && material.type._id != material_type.embed">
+            <video-player [media]="material.media" (onVideoEnd)="videoEnd($event)"></video-player>
+        </div>
+        <div *ngIf="material.type._id != material_type.embed" class="col-12 margin-top-md h-20"
+            [innerHTML]="material.description">
+        </div>
+    </div>
+</div>

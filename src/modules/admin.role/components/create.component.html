@@ -1,0 +1,37 @@
+﻿<form class="col-12" #roleForm="ngForm" novalidate (ngSubmit)="save()">
+    <div class="row" *ngIf="role">
+        <div class="col-6">
+            <mat-form-field class="form-full-width">
+                <input matInput placeholder="Nombre" #name="ngModel" name="name" required [(ngModel)]="role.name" type="text" class="form-full-width">
+                <mat-hint *ngIf="name.errors && name.touched" align="end">
+                    <span *ngIf="name.errors.required" class="error">
+                        <i class="material-icons">error</i> El nombre es requerido.
+                    </span>
+                </mat-hint>
+                <mat-hint *ngIf="name.valid && name.touched" align="end">
+                    <span class="success">
+                        <i class="material-icons">check</i>
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field class="form-full-width">
+                <input matInput placeholder="Descripción" #description="ngModel" name="description" [(ngModel)]="role.description" type="text"
+                    class="form-full-width">
+            </mat-form-field>
+        </div>
+        <div class="col-12">
+            <mat-checkbox name="actived" [(ngModel)]="role.actived">
+                Activo
+            </mat-checkbox>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 margin-top-xs">
+            <button class="margin-right-sm" type="button" mat-raised-button [routerLink]="['/admin/role/list']"><i class="material-icons">cancel</i>
+                Cancelar</button>
+            <button type="submit" mat-raised-button color="primary" [disabled]="!roleForm.valid"> Guardar <i class="material-icons">save</i></button>
+        </div>
+    </div>
+</form>

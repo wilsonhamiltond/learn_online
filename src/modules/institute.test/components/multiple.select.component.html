@@ -1,0 +1,14 @@
+﻿<div class="col-12 col-md-12 no-padding-l-r">
+    <h5>Opciones</h5>
+    <div class="col-lg-12" *ngFor="let option of question.options">
+        <mat-checkbox [disabled]="readonly" [checked]="hasSelected(option)" (change)="addResponse($event, option)">
+            {{option.label}}
+        </mat-checkbox>
+    </div>
+    <div *ngIf="readonly && result == true" class="col-lg-12 alert alert-success">
+        Valor: <b>{{question.value}}</b>
+    </div>
+    <div *ngIf="readonly && result == false" class="col-lg-12 alert alert-warning">
+        Respuesta incorrecta
+    </div>
+</div>

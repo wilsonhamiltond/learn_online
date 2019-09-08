@@ -1,0 +1,43 @@
+﻿<form class="col-12" #forumForm="ngForm" novalidate (ngSubmit)="save()">
+    <div class="row" *ngIf="forum">
+        <div class="col-12 col-md-12">
+            <mat-form-field class="form-full-width">
+                <input matInput placeholder="Nombre" #name="ngModel" name="name" required [(ngModel)]="forum.name" type="text" class="form-full-width">
+                <mat-hint *ngIf="name.errors && name.touched" align="end">
+                    <span *ngIf="name.errors.required" class="error">
+                        <i class="material-icons">error</i> el nombre del foro es requerido.
+                    </span>
+                </mat-hint>
+                <mat-hint *ngIf="name.valid && name.touched" align="end">
+                    <span class="success">
+                        <i class="material-icons">check</i>
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-6">
+            <mat-form-field class="form-full-width">
+                <input matInput placeholder="Orden" #order="ngModel" name="order" required [(ngModel)]="forum.order" type="number" class="form-full-width">
+                <mat-hint *ngIf="order.errors && order.touched" align="end">
+                    <span *ngIf="order.errors.required" class="error">
+                        <i class="material-icons">error</i> el orden del forum es requerido.
+                    </span>
+                </mat-hint>
+                <mat-hint *ngIf="order.valid && order.touched" align="end">
+                    <span class="success">
+                        <i class="material-icons">check</i>
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-12">
+            <h4>Descripción</h4>
+            <ck-editor name="description" [(ngModel)]="forum.description" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor>
+        </div>
+    </div>
+    <div class="margin-top-xs">
+        <button class="margin-right-sm" type="button" mat-raised-button [routerLink]="['/admin/forum/'+stage_id+'/list']"><i class="material-icons">cancel</i>
+            Cancelar</button>
+        <button type="submit" mat-raised-button color="primary" [disabled]="!forumForm.valid"> Guardar <i class="material-icons">save</i></button>
+    </div>
+</form>

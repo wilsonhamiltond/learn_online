@@ -1,0 +1,47 @@
+﻿<div class="shadow-container col-lg-8 offset-lg-2 col-md-8 offset-md-2 col-sm-8 offset-sm-2 col-12" style="margin-bottom: 15px;">
+    <div class="col-12 text-center">
+        <div class="search-home">
+            <div class="search-inp-container fx">
+                <button type="submit" class="home-search-btn" (click)="search()">
+                    <i  class="material-icons link">search</i>
+                </button>
+                <input type="search" #search_text name="search" class="search-field form-control" placeholder="Encuentra el curso de tu preferencia."
+                    autocomplete="off" (keyup)="search($event)" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="trainings col-12">
+    <div class="row">
+        <div class="col-lg-3 col-md-4 com-sm-2 col-12 margin-bootom-sm" *ngFor="let section of sections">
+            <div class="training col-12 no-padding-l-r" [routerLink]="['/site/training/details/' + section._id]">
+                <div class="col-12 no-padding-l-r" *ngIf="section.training.media">
+                    <img *ngIf="isYoutube(section.training.media) == false" [src]="section.training.media.thumbnail"
+                        class="img-responsive">
+                    <img *ngIf="isYoutube(section.training.media) == true" [src]="section.training.media.thumbnail"
+                        class="img-responsive">
+                </div>
+                <h5 class="col-12">{{section.training.title}} <br />
+                    <small>Por {{section.author.name}} {{section.author.last_name}}</small>
+                </h5>
+                <div class="col-12 price-container">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-6 text-left">
+                            <span>
+                                <i class="material-icons">person</i> {{section.enrollments | number}} Inscritos
+                            </span>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-6 text-right">
+                            <span class="is-free" *ngIf="section.training.is_free">Gratis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="alert alert-info" *ngIf="sections.length <= 0">
+                NO HAY NINGUN CURSO CON EL CRITERIO SOLICITADO.
+            </div>
+        </div>
+    </div>
+</div>

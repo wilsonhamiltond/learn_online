@@ -1,0 +1,30 @@
+﻿<div class="shadow-container col-lg-4 offset-lg-4 col-md-4 offset-md-4 col-sm-6 offset-sm-3 col-12 no-padding-l-r">
+    <div class="header text-center">
+        <h2 class="margin-top-xs">Recuperar Contraseña</h2>
+    </div>
+    <div class="body margin-top-xs">
+        <form class="col-12" #recoverForm="ngForm" novalidate (ngSubmit)="recover()">
+            <div class="form-group" [ngClass]="{ 'has-error': !user_name.valid, 'has-success' : user_name.valid}">
+                <i class="material-icons">mail</i>
+                <input name="user_name" type="email" [(ngModel)]="user.user_name" required #user_name="ngModel" class="form-control" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"
+                     placeholder="Correo Eléctronico" />
+                <span *ngIf="!user_name.valid && user_name.touched" class="error">
+                    <i  class="material-icons"*ngIf="user_name.errors.required">error</i>
+                    <i  class="material-icons"*ngIf="user_name.errors.pattern">error</i>
+                </span>
+                <span *ngIf="user_name.valid && user_name.touched" class="success">
+                    <i class="material-icons">check</i>
+                </span>
+            </div>
+            <button type="submit" class="btn btn-success btn-lg btn-block" [disabled]="!recoverForm.valid">Recuperar</button>
+            <div class="col-12 text-center">
+                <h5>
+                    <small>Al registrarte, aceptas nuestras <a>Condiciones de uso</a> y <a>Política de privacidad</a>.</small>
+                </h5>
+            </div>
+        </form>
+    </div>
+    <div class="col-12 text-center">
+        <h4>¿No tienes una cuenta? <a [routerLink]="['/site/register']">Regístrate</a></h4>
+    </div>
+</div>

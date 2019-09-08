@@ -1,0 +1,39 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/tmp
+/out-tsc
+/public/files
+
+
+# js
+/src/components/**/*.js
+/src/directives/**/*.js
+/src/environments/**/*.js
+/src/modules/**/*.js
+/src/models/**/*.js
+/src/services/**/*.js
+/server/**/*.js
+/mongo_scripts/**/*.js
+# js.map
+/src/components/**/*.js.map
+/src/directives/**/*.js.map
+/src/environments/**/*.js.map
+/src/modules/**/*.js.map
+/src/models/**/*.js.map
+/src/services/**/*.js.map
+/server/**/*.js.map
+/mongo_scripts/**/*.js.map
+
+# dependencies
+/node_modules
+
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+

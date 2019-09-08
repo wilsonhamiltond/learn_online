@@ -1,0 +1,25 @@
+﻿<div class="col-12 no-padding-l-r">
+    <div class="col-12 enrollment" *ngFor="let training of trainings">
+        <div class="col-12">
+            <img *ngIf="isYoutube(training.media)" [src]="training.media.thumbnail" class="img-responsive">
+            <img *ngIf="!isYoutube(training.media)" [src]="training.media.thumbnail" class="img-responsive">
+        </div>
+        <div class="row">
+            <h5 class="col-12 col-sm-12 col-lg-4 col-md-4">{{training.title}} <br/>
+                <small>Por {{training.section.author.name}} {{training.section.author.last_name}}</small>
+            </h5>
+            <h5 class="col-12 col-sm-12 col-lg-4 col-md-4" *ngIf="!training.section.tutorial">
+                {{training.section.status.name}}
+                <br/>
+                <small>Desde {{training.section.start_date | date:'dd/MM/yyy'}} hasta {{training.section.end_date | date:'dd/MM/yyy'}}</small>
+            </h5>
+            <div class="col-12 col-sm-12 col-lg-4 col-md4 text-center" *ngIf="training.section.tutorial || training.section.status._id == IMPROGRESS_STATUS">
+                <a [routerLink]="['/institute/' + training.section._id + '/home']" class="btn btn-filled btn-lg btn-success">Continuar curso</a>
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-info" *ngIf="trainings.length <= 0">
+        NO ESTAS INSCRITO EN NINGUN CURSO. <br/>
+        <button [routerLink]="['/site/training/search']" class="btn btn-filled btn-block btn-info">Ver todo los cursos</button>
+    </div>
+</div>

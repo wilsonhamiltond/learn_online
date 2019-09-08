@@ -1,0 +1,60 @@
+﻿<div class="col-12">
+    <div class="row">
+        <div class="col-4">
+            <button mat-raised-button color="success" [routerLink]="['/admin/training/0/create']">
+                <i  class="material-icons md-16">add_box</i> Nuevo</button>
+        </div>
+        <div class="col-8">
+            <mat-form-field style="width: 100%">
+                <input matInput type="search" [(ngModel)]="query" (keyup)="search($event)" placeholder='Filtrar' />
+            </mat-form-field>
+        </div>
+        <div class="col-12">
+            <table mat-table [dataSource]="trainings" style="width: 100%">
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.title}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="category">
+                    <th mat-header-cell *matHeaderCellDef>Categoria</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.category.name}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="language">
+                    <th mat-header-cell *matHeaderCellDef>Lenguaje</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.language.name}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef>Estado</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.status.name}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="sections">
+                    <th mat-header-cell *matHeaderCellDef class="action">Secciones</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button class="action" mat-button color="accent" [routerLink]="['/admin/section/'+ element._id +'/list']"><i class="material-icons"
+                                >view_quilt</i></button>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef class="action">Acción</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button class="action" mat-button color="accent" [routerLink]="['/admin/training/'+ element._id +'/create']"><i class="material-icons"
+                                >create</i></button>
+                        <button class="action" mat-button color="warn" (click)="delete(element)"><i  class="material-icons md-16">delete</i></button>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [length]="size" [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100]" (page)="onPage($event)">
+            </mat-paginator>
+        </div>
+    </div>
+</div>

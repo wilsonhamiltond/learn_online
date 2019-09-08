@@ -1,0 +1,58 @@
+﻿<div class="col-12 no-padding-l-r">
+    <mat-drawer-container [hasBackdrop]="false" style="height: 100%;">
+        <mat-drawer class="sidenav" #start [mode]="'side'" [opened]="true" >
+            <div class="title">
+                <a class="logo" [routerLink]="['/admin/home']">educate </a>
+                <i  class="material-icons float-right" (click)="start.close()" style="cursor: pointer; margin-top: 15px;" >reorder</i>
+            </div>
+            <ul class="menu">
+                <li [routerLinkActive]="['active']">
+                    <a [routerLink]="['/admin/home']"><i class="material-icons">home</i> Inicio</a>
+                </li>
+                <li [routerLinkActive]="['active']" *ngIf="showMenu('/admin/catalog/list')">
+                    <a [routerLink]="['/admin/catalog/list']"><i class="material-icons">group_work</i> Catalogos</a>
+                </li>
+                <li [routerLinkActive]="['active']" *ngIf="showMenu('/admin/user/list')">
+                    <a [routerLink]="['/admin/user/list']"><i class="material-icons">supervisor_account</i> Usuarios</a>
+                </li>
+                <li [routerLinkActive]="['active']" *ngIf="showMenu('/admin/role/list')">
+                    <a [routerLink]="['/admin/role/list']"><i class="material-icons">supervised_user_circle</i> Perfiles</a>
+                </li>
+                <li [routerLinkActive]="['active']" *ngIf="showMenu('/admin/category/list')">
+                    <a [routerLink]="['/admin/category/list']"><i class="material-icons">category</i> Categorias</a>
+                </li>
+                <li [routerLinkActive]="['active']" *ngIf="showMenu('/admin/training/list')">
+                    <a [routerLink]="['/admin/training/list']"><i class="material-icons">assignment</i> Cursos</a>
+                </li>
+                <li [routerLinkActive]="['active']" *ngIf="showMenu('/admin/section/list')">
+                    <a [routerLink]="['/admin/section/list']"><i class="material-icons">chrome_reader_mode</i> Secciones</a>
+                </li>
+                <li> <a (click)="logout()"><i class="material-icons">exit_to_app</i> Cerrar sesión</a></li>
+            </ul>
+        </mat-drawer>
+        <mat-drawer-content>
+            <div class="header">
+                <a class="logo" (click)="start.open()" *ngIf="!start.opened">
+                    educate <i class="material-icons">reorder</i>
+                </a>
+                <span style="    padding-left: 15px;
+                text-transform: uppercase;
+                top: 10px;
+                position: relative;
+                font-size: 14pt;"><b>{{title}}</b></span>
+            </div>
+            <div class="main col-12"  style="padding-bottom: 15px; padding-top: 15px;">
+                <ol class="container breadcrumb">
+                    <li *ngFor="let link of links" [ngClass]="{ 'active': link.active }">
+                        <span *ngIf="!link.link">{{link.title}}</span>
+                        <a *ngIf="link.link" [routerLink]="[link.link]">{{link.title}}</a>
+                    </li>
+                </ol>
+                <div class="component-main col-12 no-padding-l-r">
+                    <loading></loading>
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </mat-drawer-content>
+    </mat-drawer-container>
+</div>

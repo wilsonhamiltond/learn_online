@@ -1,0 +1,52 @@
+﻿<div class="col-12">
+    <table mat-table [dataSource]="enrollments" style="width: 100%">
+        <ng-container matColumnDef="training">
+            <th mat-header-cell *matHeaderCellDef>Curso</th>
+            <td mat-cell *matCellDef="let element">
+                {{element.training.title}}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="section">
+            <th mat-header-cell *matHeaderCellDef>Sección</th>
+            <td mat-cell *matCellDef="let element">
+                <a [routerLink]="['/institute/' + element.section._id + '/home']" >{{element.section.code}}</a>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="start_date">
+            <th mat-header-cell *matHeaderCellDef>Inicio</th>
+            <td mat-cell *matCellDef="let element">
+                {{element.create_date | date:'dd/MM/yyyy'}}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="end_date">
+            <th mat-header-cell *matHeaderCellDef>Fin</th>
+            <td mat-cell *matCellDef="let element">
+                <span *ngIf="element.end_date">{{element.end_date | date:'dd/MM/yyyy'}}</span>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="percentage">
+            <th mat-header-cell *matHeaderCellDef>Porcentage</th>
+            <td mat-cell *matCellDef="let element">
+                <span *ngIf="element.percentage">{{element.percentage | number}}%</span> 
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Estado</th>
+            <td mat-cell *matCellDef="let element">
+                {{element.status.name}}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="action" class="action">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let element">
+                <button matTooltip="Descargar certificado" *ngIf="element.percentage >= element.section.percentage && element.status._id == ENROLLMENT_STATUS_ENUM.finished" 
+                class="action" mat-button color="primary" (click)="download(element)"  ><i class="material-icons"
+                        >receipt</i></button>
+                <button matTooltip="Retirar tu subcripción" *ngIf="element.status._id == ENROLLMENT_STATUS_ENUM.subscribed" class="action" mat-button color="warn" (click)="suspend(element)"  ><i class="material-icons"
+                        >report_off</i></button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

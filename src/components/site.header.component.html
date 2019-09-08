@@ -1,0 +1,33 @@
+﻿<header class="header">
+    <nav class="container">
+        <div class="row">
+            <div class="col-12 col-md-6 no-padding-l-r">
+                <a class="logo" [routerLink]="['/site/home']">educate</a>
+                <button style="z-index: 5" class="btn btn-xs btn-default float-right margin-top-xs d-block d-sm-none" (click)="toggleMenu()">
+                    <i class="material-icons">reorder</i>
+                </button>
+            </div>
+            <div class="col-12 col-md-6 d-none d-sm-block no-padding-l-r text-right" [ngClass]="{'menu-xs': menu_xs}">
+                <ul>
+                    <li [routerLinkActive]="['active']">
+                        <a [routerLink]="['/site/home']"> <i class="material-icons">home</i> Inicio</a>
+                    </li>
+                    <!-- LOGOFF MENUS -->
+                    <li [routerLinkActive]="['active']" *ngIf="!user">
+                        <a [routerLink]="['/site/security/login']"><i class="material-icons">input</i> Iniciar Sesión</a>
+                    </li>
+                    <li [routerLinkActive]="['active']" *ngIf="!user">
+                        <a [routerLink]="['/site/security/register']"><i class="material-icons">person_add</i> Registrate</a>
+                    </li>
+
+                    <!-- LOGOFF MENUS -->
+                    <li [routerLinkActive]="['active']" class="profile" *ngIf="!!user">
+                        <a [routerLink]="['/profile/home']">
+                            <img class="avatar" [src]="user.person.avatar_url" /> {{user.person.name}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

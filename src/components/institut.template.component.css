@@ -1,0 +1,201 @@
+﻿div.main{
+    height: 100%;
+    padding-top: 62px;
+    margin-top: -62px;
+    z-index: 1;
+    width: 100%;
+    background-color: #eee;
+    box-shadow: 0px -4px 10px -3px gainsboro;
+}
+mat-sidenav-container{
+    height: 100%;
+    background-color: #ffffff;
+    color: black;
+}
+.sidenav{
+    background-color: #ffffff !important;
+    color: black !important;
+    width: 100%;
+    overflow: hidden;
+}
+.title{
+    padding: 6px 50px;
+}
+.title .logo{
+    font-family: 'Love Ya Like A Sister', cursive;
+    font-size: 26pt;
+}
+.logo{
+    font-family: 'Love Ya Like A Sister', cursive;
+    font-size: 22pt;
+    padding: 0px 15px;
+}
+.logo i.material-icons{
+    font-size: 15pt;
+}
+ul.menu{
+    list-style-type: none;
+    padding: 0;
+}
+ul.menu li{
+    padding: 10px 30px;
+    font-size: 13pt;
+}
+ul.menu li.active{
+    background: #f7f7f7;
+}
+
+ul.menu li:last-of-type{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+ul.menu li:hover{
+    background: #cbcbcb;
+}
+ul.menu li a{
+    text-decoration: none;
+    color: #5a5a5a;
+    width: 100%;
+    display: block;
+    font-size: 30pt;
+}
+ul.menu li.title{
+    border-bottom: 1px solid #909090;
+    padding: 17px 14px 10px 15px;
+}
+ul.menu li.title a{
+    font-size: 0pt;
+}
+
+ul.training-menu li i.type{
+    font-size: 12pt;
+    position: relative;
+    top: 2px;
+}
+
+ul.menu li.title a img{
+    width: 50px;
+}
+ul.menu li a {
+    max-width: 90%;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+ul.menu li a:hover{
+    color: #1abc9c;
+}
+
+div.header{
+    z-index: 2;
+    display: block;    
+    height: 62px;
+    position: relative;
+    padding: 10px 0px;
+    border-bottom: solid 1px #c5c5c5;
+}
+div.header span{
+    font-size: 18pt;
+}
+.component-main{
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 3px;
+}
+.height-full{
+    height: 100%;
+}
+.main-menu{
+    background-color: #aaaaaa;
+}
+.sub-menu{
+    background-color: #ededed;
+}
+.program{
+    overflow-y: auto;
+    height: 90%;
+}
+.program::-webkit-scrollbar {
+    width: 10px;
+}
+    
+.program::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+    
+.program::-webkit-scrollbar-thumb {
+    background-color: rgba(26, 188, 156, 0.66);
+    outline: 2px solid rgb(139, 139, 139);
+    border-radius: 3px;
+}
+
+.sub-menu ul{
+    list-style-type: none;
+    padding-left: 0px;
+}
+.sub-menu ul li.title{   
+    border-bottom: solid 1px #c7c7c7;
+    padding-top: 9px;
+}
+.sub-menu ul li.stage h5{
+    padding-left: 10px;
+    color: #3175b0;
+    font-size: 13pt;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #cbcbcb;
+    padding-top: 5px;
+    margin-top: 5px;
+    margin-bottom: 0px;            
+}
+.sub-menu ul li.stage ul li{
+    background-color: #dddddd;
+    border-bottom: 1px solid #a69a9a;
+    font-size: 12pt;
+    padding: 10px 20px;
+    color: gray;
+}
+.sub-menu ul li.stage ul li .viewed{
+    color: green;
+}
+
+.sub-menu ul li.stage ul li.selected{    
+    background-color: rgba(43, 203, 171, 0.61);
+    color: white;
+} 
+.sub-menu ul li.stage ul li.selected a{
+    color: white;
+}
+.sub-menu ul li.stage ul li.selected a:hover{
+    color: #6d6d6d;
+}
+.sub-menu ul li.stage ul li a{
+    color: #292929;
+}
+.sub-menu ul li.stage ul li a:hover{
+    color: #fff;
+}
+h5.title{
+    border-bottom: 1px solid #c3c3c3;
+    padding: 0px 10px 17px 10px;
+    margin-top: 20px;
+}
+/* mat */
+@media (min-width: 992px) {
+    .sidenav {
+    width: 35%;
+    }
+}
+/* lg */
+@media (min-width: 1200px) {
+    .sidenav {
+        width: 35%;
+    }
+}
+
+.program .stage h5.disabled, .program .stage ul.disabled, .program .stage ul li.disabled{
+    pointer-events: none;
+    opacity: 0.6;
+}

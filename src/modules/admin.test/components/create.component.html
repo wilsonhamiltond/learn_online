@@ -1,0 +1,50 @@
+﻿<form class="col-12" #testForm="ngForm" novalidate (ngSubmit)="save()">
+    <div class="row" *ngIf="test">
+        <div class="col-12">
+            <mat-form-field class="form-full-width"><input matInput placeholder="Nombre" #name="ngModel" name="name"
+                    required [(ngModel)]="test.name" type="text" class="form-full-width">
+                <mat-hint *ngIf="name.errors && name.touched" align="end">
+                    <span *ngIf="name.errors.required" class="error">
+                        <i class="material-icons">error</i> El nombre es requerido.
+                    </span>
+                </mat-hint>
+                <mat-hint *ngIf="name.valid && name.touched" align="end">
+                    <span class="success">
+                        <i class="material-icons">check</i>
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-6">
+            <mat-form-field class="form-full-width"><input matInput placeholder="Duración en minutos" #time="ngModel"
+                    name="time" required [(ngModel)]="test.time" type="number" class="form-full-width">
+                <mat-hint *ngIf="time.errors && time.touched" align="end">
+                    <span *ngIf="time.errors.required" class="error">
+                        <i class="material-icons">error</i> La duración es requerido.
+                    </span>
+                </mat-hint>
+                <mat-hint *ngIf="time.valid && time.touched" align="end">
+                    <span class="success">
+                        <i class="material-icons">check</i>
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-6">
+            <mat-form-field class="form-full-width">
+                <mat-select name="status" required placeholder="Estado" [(ngModel)]="test.status">
+                    <mat-option *ngFor="let status of statues" [value]="status._id">{{ status.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-12">
+            <h5>Descripción</h5>
+            <ck-editor name="description" [(ngModel)]="test.description" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor>
+        </div>
+    </div>
+    <div class="margin-top-xs">
+        <button class="margin-right-sm" type="button" mat-raised-button [routerLink]="['/admin/test/'+stage_id+'/list']"><i class="material-icons">cancel</i>
+            Cancelar</button>
+        <button type="submit" mat-raised-button color="primary" [disabled]="!testForm.valid"> Guardar <i class="material-icons">save</i></button>
+    </div>
+</form>

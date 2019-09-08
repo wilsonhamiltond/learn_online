@@ -1,0 +1,32 @@
+{
+    "dbConfig":{
+        "host": "127.0.0.1",
+        "port": "27800",
+        "dbName": "ee_sass",
+        "user": "",
+        "password": ""
+    },
+    "port":"8090",
+    "is_saas": true,
+    "max_file_size": "20mb",
+    "site_url": "https://educateenlinea.com",
+    "sessionConfig": {
+        "secret": "educate-a@123456-linea",
+        "resave": true,
+        "saveUninitialized": true,
+        "cookie": { 
+            "path": "/",
+            "secure": false,
+            "maxAge": 1800000
+        }
+    },
+    "mail_config": {
+        "host": "smtp.gmail.com",
+        "port": 465,
+        "secure": true,
+        "auth": {
+            "user": "",
+            "pass": ""
+        }
+    }
+}

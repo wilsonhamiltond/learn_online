@@ -1,0 +1,67 @@
+﻿<div class="col-12">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <mat-form-field class="form-full-width">
+                <input matInput placeholder="Descripción del video" #video_desc="ngModel" name="video_desc" required [(ngModel)]="media.name"
+                    type="text" class="form-full-width">
+                <mat-hint *ngIf="video_desc.errors && video_desc.touched" align="end">
+                    <span *ngIf="video_desc.errors.required" class="error">
+                        <i class="material-icons">error</i> La descripción del video es requerido.
+                    </span>
+                </mat-hint>
+                <mat-hint *ngIf="video_desc.valid && video_desc.touched" align="end">
+                    <span class="success">
+                        <i class="material-icons">check</i>
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-6">
+            <mat-form-field class="form-full-width">
+                <input matInput placeholder="Url del video" #url="ngModel" name="url" required [(ngModel)]="media.url" type="text" class="form-full-width">
+                <mat-hint *ngIf="url.errors && url.touched" align="end">
+                    <span *ngIf="url.errors.required" class="error">
+                        <i class="material-icons">error</i> El url del video es requerido.
+                    </span>
+                </mat-hint>
+                <mat-hint *ngIf="url.valid && url.touched" align="end">
+                    <span class="success">
+                        <i class="material-icons">check</i>
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-6">
+            <mat-form-field class="form-full-width">
+                <input matInput placeholder="Imagen del video" #thumbnail="ngModel" name="thumbnail" required [(ngModel)]="media.thumbnail"
+                    type="text" class="form-full-width">
+                <mat-hint *ngIf="thumbnail.errors && thumbnail.touched" align="end">
+                    <span *ngIf="thumbnail.errors.required" class="error">
+                        <i class="material-icons">error</i> La imagen del video es requerido.
+                    </span>
+                </mat-hint>
+                <mat-hint *ngIf="thumbnail.valid && thumbnail.touched" align="end">
+                    <span class="success">
+                        <i class="material-icons">check</i>
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-6">
+            <mat-form-field class="form-full-width">
+                <input matInput placeholder="Duración ( en segundos )" #duration="ngModel" name="duration" required [(ngModel)]="media.duration"
+                    type="number" class="form-full-width">
+                <mat-hint *ngIf="duration.errors && duration.touched" align="end">
+                    <span *ngIf="duration.errors.required" class="error">
+                        <i class="material-icons">error</i> La duración del video es requerido.
+                    </span>
+                </mat-hint>
+                <mat-hint *ngIf="duration.valid && duration.touched" align="end">
+                    <span class="success">
+                        <i class="material-icons">check</i>
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

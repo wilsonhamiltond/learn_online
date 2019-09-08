@@ -1,0 +1,62 @@
+﻿<form class="col-12" #questionForm="ngForm" novalidate (ngSubmit)="save()">
+    <div class="row" *ngIf="question">
+        <div class="col-12 col-md-12">
+            <h5>Descripción</h5>
+            <ck-editor name="description" [(ngModel)]="question.description" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor>
+        </div>
+        <div class="col-12 col-md-12 margin-top-md">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="form-full-width">
+                        <mat-select name="type" #type="ngModel" required placeholder="Tipo de pregunta" [(ngModel)]="question.type">
+                            <mat-option *ngFor="let type of types" [value]="type._id">{{ type.name }}</mat-option>
+                        </mat-select>
+                        <mat-hint *ngIf="type.errors && type.touched" align="end">
+                            <span *ngIf="type.errors.required" class="error">
+                                <i class="material-icons">error</i> El valor es requerido.
+                            </span>
+                        </mat-hint>
+                        <mat-hint *ngIf="type.valid && type.touched" align="end">
+                            <span class="success">
+                                <i class="material-icons">check</i>
+                            </span>
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="form-full-width"><input matInput placeholder="Valor" #value="ngModel" name="value"
+                            required [(ngModel)]="question.value" type="number" class="form-full-width">
+                        <mat-hint *ngIf="value.errors && value.touched" align="end">
+                            <span *ngIf="value.errors.required" class="error">
+                                <i class="material-icons">error</i> El valor es requerido.
+                            </span>
+                        </mat-hint>
+                        <mat-hint *ngIf="value.valid && value.touched" align="end">
+                            <span class="success">
+                                <i class="material-icons">check</i>
+                            </span>
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-12">
+            <div class="alert alert-warning" *ngIf="!question.type">
+                Seleccione un tipo de pregunta
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-12 no-padding-l-r" *ngIf="question.type == SELECT_ONE_OPTION">
+                    <one-select [options]="question.options" [responses]="question.responses" (OnOptionChange)="optionChange($event)" (OnResponseChange)="responseChange($event)"></one-select>
+                </div>
+                <div class="col-12 col-md-12 no-padding-l-r" *ngIf="question.type == SELECT_MULTIPLE_OPTION">
+                    <multiple-select [options]="question.options" [responses]="question.responses" (OnOptionChange)="optionChange($event)" (OnResponseChange)="responseChange($event)"></multiple-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="margin-top-xs">
+        <button class="margin-right-sm" type="button" mat-raised-button [routerLink]="['/admin/question/'+ test_id +'/list']"><i class="material-icons">cancel</i>
+            Cancelar</button>
+        <button type="submit" mat-raised-button color="primary" [disabled]="!questionForm.valid"> Guardar <i class="material-icons">save</i></button>
+    </div>
+</form>

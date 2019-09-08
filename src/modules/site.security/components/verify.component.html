@@ -1,0 +1,26 @@
+﻿<div *ngIf="!loading" class="shadow-container col-lg-4 offset-lg-4 col-md-4 offset-md-4 col-sm-6 offset-sm-3 col-12 no-padding-l-r">
+    <div class="header text-center">
+        <h4 *ngIf="tokenResult.result" class="margin-top-xs">Token valido</h4>
+        <h4 *ngIf="!tokenResult.result" class="margin-top-xs">Token no valido</h4>
+    </div>
+    <div class="body margin-top-xs">
+        <div class="col-12 text-center">
+            <h5>{{tokenResult.message}}</h5>
+            <div class="col-12 no-padding-l-r text-center" *ngIf="tokenResult.result">
+                <div class="circle-container">
+                    <mat-progress-spinner mode="determinate" [value]="((currentTime * 100) / time)"></mat-progress-spinner>
+                    <span class="number">{{(20 - currentTime)}}</span>
+                </div>
+                <div class="alert alert-info">
+                    <h6>En unos segundos sera redireccionado a su perfil.</h6>
+                </div>
+            </div>
+            <div>
+                <div *ngIf="tokenResult.result" class="col-12 margin-top-xs">
+                    <a [routerLink]="['/profile/home']" class="btn btn-facebook btn-primary btn-lg btn-block">Ir a mi perfil</a>
+                </div>
+                <div *ngIf="!tokenResult.result" class="col-12 margin-top-xs">
+                    <a [routerLink]="['/site/home']" class="btn btn-default btn-lg btn-block">Ir al inicio</a>
+                </div>
+            </div>
+        </div>

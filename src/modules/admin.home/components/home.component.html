@@ -1,0 +1,61 @@
+﻿<div class="col-12">
+    <h3>Administración de Educate en Linea</h3>
+    <div class="row">
+        <div class="col-4">
+            <mat-card>
+                <mat-card-header>
+                    <div mat-card-avatar>
+                        <i class="material-icons">supervisor_account</i>
+                    </div>
+                    <mat-card-title>Usuarios</mat-card-title>
+                    <mat-card-subtitle>Usuario por estado</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content *ngIf="user">
+                    <p>Total: {{user.total | number}}</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-4">
+            <mat-card>
+                <mat-card-header>
+                    <div mat-card-avatar>
+                        <i class="material-icons">assignment</i>
+                    </div>
+                    <mat-card-title>Cursos</mat-card-title>
+                    <mat-card-subtitle>cursos por estado</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content *ngIf="training">
+                    <p>Total: {{training.total | number}}</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-4">
+            <mat-card>
+                <mat-card-header>
+                    <div mat-card-avatar>
+                        <i class="material-icons">chrome_reader_mode</i>
+                    </div>
+                    <mat-card-title>Sscciones</mat-card-title>
+                    <mat-card-subtitle>Sscciones por estado</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content *ngIf="section">
+                    <p>Total: {{section.total | number}}</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-4 margin-top-sm">
+            <mat-card>
+                <mat-card-header>
+                    <div mat-card-avatar>
+                        <i class="material-icons">person</i>
+                    </div>
+                    <mat-card-title>Inscripciones</mat-card-title>
+                    <mat-card-subtitle>Inscripciones por estado</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content *ngIf="enrollment">
+                    <p>Total: {{enrollment.total | number}}</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
