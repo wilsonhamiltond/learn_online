@@ -35,7 +35,7 @@
     "mongoose": "^5.0.17",
     "multer": "^1.2.1",
     "ngx-ckeditor": "^0.3.2",
-    "nodemailer": "^4.6.8",
+    "nodemailer": "^6.4.16",
     "rxjs": "^6.0.0",
     "webshot": "^0.18.0",
     "zone.js": "^0.8.26"
